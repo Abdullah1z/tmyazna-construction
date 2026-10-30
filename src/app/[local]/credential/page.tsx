@@ -131,10 +131,23 @@ export default async function CredentialPage() {
           </FadeUp>
         </div>
         <div className=" container mt-5">
-          <div className="p-5 bg-gray-100 text-center">
+          {/* <div className="p-5 bg-gray-100 text-center">
               {t("venderEmptyText")}
-          </div>
-
+          </div> */}
+          <CredentialImageText
+          eyebrow={t("occupational.eyebrow")}
+          title={t("occupational.title")}
+          subtitle={t("occupational.subtitle")}
+          description={t("occupational.description")}
+          image={iso4518}
+          imageLink={cerficate4}
+          imageAlt={t("occupational.imageAlt")}
+          viewCertificateLabel={t("viewCertificate")}
+          viewImageLabel={t("viewImage")}
+          lensLabel={t("viewLens")}
+          closeImageLabel={t("closeImage")}
+          openLinkLabel={t("openLink")}
+        />
         </div>
       </div>
       <div id="compliance">

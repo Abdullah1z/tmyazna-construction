@@ -29,7 +29,7 @@ export default function AboutPage() {
 
       <StorySection />
 
-      <QuoteBannerSection />
+      {/* <QuoteBannerSection /> */}
 
       <LeadershipMessageSection />
 

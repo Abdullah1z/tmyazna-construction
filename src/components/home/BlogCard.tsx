@@ -8,13 +8,15 @@ import type { BlogPost } from "@/data/blog";
 
 interface BlogCardProps {
   post: BlogPost;
+  featured?: boolean;
 }
 
 
-export default function BlogCard({ post }: BlogCardProps) {
+export default function BlogCard({ post, featured = false }: BlogCardProps) {
   const locale = useLocale();
   const isRtl = locale === "ar";
   const t = useTranslations("Blog");
+  const tMedia = useTranslations("Media");
 
   // Localise date
   const dateObj = new Date(post.date);
@@ -25,53 +27,54 @@ export default function BlogCard({ post }: BlogCardProps) {
     locale === "ar" ? "ar-SA" : "en-GB",
     { month: "short", year: "numeric" }
   ).format(dateObj);
+  const formattedDate = new Intl.DateTimeFormat(
+    locale === "ar" ? "ar-SA" : "en-GB",
+    { day: "numeric", month: "long", year: "numeric" }
+  ).format(dateObj);
 
-  const title    = locale === "ar" ? post.title.ar    : post.title.en;
-  const category = locale === "ar" ? post.category.ar : post.category.en;
+  const title = locale === "ar" ? post.title.ar : post.title.en;
+  const excerpt = locale === "ar" ? post.excerpt.ar : post.excerpt.en;
 
   // Detail page — /media/[slug]
   const href = `/media/${post.slug}`;
 
   return (
     <article
-      className="
-        blog-card group
-        relative flex flex-col
-        bg-background rounded-2xl
-        border border-gray-100
-        p-4 sm:p-5
-        motion-safe:transition-all motion-safe:duration-300
-        hover:border-secondary
-        hover:-translate-y-1.5
-        hover:shadow-[inset_0_12px_40px_rgba(0,134,255,0.15)]
-        focus-within:border-secondary
-        focus-within:-translate-y-1.5
-        focus-within:shadow-[inset_0_12px_40px_rgba(0,134,255,0.15)]
-        overflow-hidden
-        h-full
-      "
+      dir={featured ? "ltr" : undefined}
+      className={`blog-card group relative ${
+        featured
+          ? "flex flex-col gap-6 overflow-hidden rounded-2xl border border-gray-100 bg-background p-4 sm:p-6 md:flex-row md:items-stretch"
+          : "flex flex-col bg-background rounded-2xl border border-gray-100 p-4 sm:p-5 motion-safe:transition-all motion-safe:duration-300 hover:border-secondary hover:-translate-y-1.5 hover:shadow-[inset_0_12px_40px_rgba(0,134,255,0.15)] focus-within:border-secondary focus-within:-translate-y-1.5 focus-within:shadow-[inset_0_12px_40px_rgba(0,134,255,0.15)] h-full"
+      }`}
     >
       {/* ── Media area ── */}
       <div
-        className="relative overflow-hidden rounded-xl isolate"
-        style={{ aspectRatio: "4 / 3" }}
+        className={`relative overflow-hidden rounded-xl isolate ${
+          featured ? "w-full shrink-0 md:w-1/2" : ""
+        }`}
+        style={{ aspectRatio: featured ? "16 / 9" : "4 / 3" }}
       >
-        {/* Dark scrim for text legibility on bright images */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.10) 45%, transparent 100%)",
-          }}
-          aria-hidden="true"
-        />
+        {!featured && (
+          <div
+            className="absolute inset-0 z-10 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.10) 45%, transparent 100%)",
+            }}
+            aria-hidden="true"
+          />
+        )}
 
         {/* Image — scales on card hover only, clipped by overflow:hidden */}
         <Image
           src={post.image}
           alt={locale === "ar" ? post.title.ar : post.title.en}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes={
+            featured
+              ? "(max-width: 768px) 100vw, 50vw"
+              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          }
           className="
             object-cover
             motion-safe:transition-transform motion-safe:duration-900 motion-safe:ease-out
@@ -81,66 +84,44 @@ export default function BlogCard({ post }: BlogCardProps) {
           placeholder="blur"
         />
 
-        {/* ── Floating glassmorphic bar ── */}
-        <div
-          className="
-            blog-card-bar
-            absolute inset-x-3 bottom-3 z-20
-            flex items-center justify-between
-            px-4 py-3
-            rounded-xl
-            border border-white/25
-            bg-neutral-950/45
-            backdrop-blur-xl saturate-150
-            shadow-[0_8px_25px_rgba(0,0,0,0.28)]
-            motion-safe:transition-all motion-safe:duration-550 motion-safe:ease-out
-          "
-        >
-          {/* Date block — start side */}
-          <div className="flex flex-col leading-none shrink-0">
-            <span
-              className={`
-                text-white font-bold
-                text-2xl leading-none
-                ${!isRtl ? "uppercase tracking-tight" : ""}
-              `}
-            >
-              {dayStr}
-            </span>
-            <span
-              className={`
-                text-white/80 text-[11px] font-medium mt-1
-                ${!isRtl ? "uppercase tracking-wider" : ""}
-              `}
-            >
-              {monthYearStr}
-            </span>
+        {!featured && (
+          <div className="blog-card-bar absolute inset-x-3 bottom-3 z-20 flex items-center justify-between rounded-xl border border-white/25 bg-neutral-950/45 px-4 py-3 shadow-[0_8px_25px_rgba(0,0,0,0.28)] backdrop-blur-xl saturate-150 motion-safe:transition-all motion-safe:duration-550 motion-safe:ease-out">
+            <div className="flex shrink-0 flex-col leading-none">
+              <span
+                className={`text-2xl font-bold leading-none text-white ${
+                  !isRtl ? "uppercase tracking-tight" : ""
+                }`}
+              >
+                {dayStr}
+              </span>
+              <span
+                className={`mt-1 text-[11px] font-medium text-white/80 ${
+                  !isRtl ? "uppercase tracking-wider" : ""
+                }`}
+              >
+                {monthYearStr}
+              </span>
+            </div>
           </div>
-
-          {/* Premium Category badge — end side with indicator dot */}
-          {/* <div
-            className="
-              inline-flex items-center gap-1.5
-              px-3 py-1.5 rounded-full
-              bg-white/15 border border-white/25
-              text-white text-xs font-medium
-              backdrop-blur-md shadow-sm shrink-0
-              motion-safe:transition-all motion-safe:duration-300
-              group-hover:bg-secondary/25 group-hover:border-secondary/60
-              whitespace-nowrap
-            "
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(0,134,255,0.9)] shrink-0"
-              aria-hidden="true"
-            />
-            <span>{category}</span>
-          </div> */}
-        </div>
+        )}
       </div>
 
       {/* ── Card body ── */}
-      <div className="flex flex-col flex-1 pt-5 pb-2 px-1 gap-4 sm:gap-5">
+      <div
+        dir={featured ? (isRtl ? "rtl" : "ltr") : undefined}
+        className={`flex flex-col flex-1 gap-4 sm:gap-5 ${
+          featured ? "justify-center py-2 md:py-6 md:px-2" : "pt-5 pb-2 px-1"
+        }`}
+      >
+        {featured && (
+          <p className="text-sm font-medium text-slate-500">
+            {tMedia("publishedOn")}{" "}
+            <time dateTime={post.date} className="font-semibold text-primary">
+              {formattedDate}
+            </time>
+          </p>
+        )}
+
         {/* Title — 3-line clamp, turns brand-blue on hover */}
         <h3
           className="
@@ -155,6 +136,12 @@ export default function BlogCard({ post }: BlogCardProps) {
         >
           {title}
         </h3>
+
+        {featured && (
+          <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+            {excerpt}
+          </p>
+        )}
 
         {/* Read more row with left-to-right animated underline */}
         <div className="flex items-center justify-between pt-2 mt-auto">

@@ -36,18 +36,36 @@ export interface JobPosition {
     en: string;
     ar: string;
   };
+  /** Publication date, format: "YYYY-MM-DD" (shown as "Posted On: ..."). */
+  postedDate: string;
   icon: LucideIcon;
+  /** Shown as "Job Purpose / Objective" */
   overview: {
     en: string;
     ar: string;
   };
+  /** Shown as "Key Responsibilities / Accountabilities" (bullet points) */
   responsibilities: {
     en: string[];
     ar: string[];
   };
+  /** Shown in the "Requirements" part, one block per key. Empty arrays are hidden. */
   requirements: {
-    en: string[];
-    ar: string[];
+    /** Education / Professional Qualification */
+    education: {
+      en: string[];
+      ar: string[];
+    };
+    /** Experience */
+    experience: {
+      en: string[];
+      ar: string[];
+    };
+    /** Professional Licensing / Certification / Training */
+    licensing: {
+      en: string[];
+      ar: string[];
+    };
   };
 }
 
@@ -224,6 +242,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "5-8 years",
       ar: "٥-٨ سنوات",
     },
+    postedDate: "2026-10-12",
     icon: Cpu,
     overview: {
       en: "Lead the design review, coordination and delivery of mechanical, electrical and plumbing systems on TMYAZNA's landmark projects. You'll sit at the heart of our Systems Integration division, making sure every installation meets international standards and the ambitions of Saudi Vision 2030.",
@@ -246,20 +265,26 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "B.Sc. in Mechanical or Electrical Engineering from an accredited university.",
-        "8+ years of MEP experience on large construction or infrastructure projects.",
-        "Strong knowledge of the Saudi Building Code (SBC) and international standards (ASHRAE, NFPA).",
-        "Proficiency with AutoCAD, Revit MEP and construction management software.",
-        "Saudi Council of Engineers (SCE) registration is preferred.",
-      ],
-      ar: [
-        "بكالوريوس في الهندسة الميكانيكية أو الكهربائية من جامعة معتمدة.",
-        "خبرة لا تقل عن ٨ سنوات في مشاريع المباني الكبرى والبنية التحتية.",
-        "معرفة عميقة بكود البناء السعودي والمعايير الدولية (ASHRAE, NFPA).",
-        "إتقان العمل على برامج AutoCAD و Revit MEP وتطبيقات إدارة المشاريع.",
-        "الاعتماد والتسجيل المهني لدى الهيئة السعودية للمهندسين (مفضل).",
-      ],
+      education: {
+        en: ["B.Sc. in Mechanical or Electrical Engineering from an accredited university."],
+        ar: ["بكالوريوس في الهندسة الميكانيكية أو الكهربائية من جامعة معتمدة."],
+      },
+      experience: {
+        en: [
+          "8+ years of MEP experience on large construction or infrastructure projects.",
+          "Strong knowledge of the Saudi Building Code (SBC) and international standards (ASHRAE, NFPA).",
+          "Proficiency with AutoCAD, Revit MEP and construction management software.",
+        ],
+        ar: [
+          "خبرة لا تقل عن ٨ سنوات في مشاريع المباني الكبرى والبنية التحتية.",
+          "معرفة عميقة بكود البناء السعودي والمعايير الدولية (ASHRAE, NFPA).",
+          "إتقان العمل على برامج AutoCAD و Revit MEP وتطبيقات إدارة المشاريع.",
+        ],
+      },
+      licensing: {
+        en: ["Saudi Council of Engineers (SCE) registration is preferred."],
+        ar: ["الاعتماد والتسجيل المهني لدى الهيئة السعودية للمهندسين (مفضل)."],
+      },
     },
   },
   {
@@ -285,6 +310,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "3-5 years",
       ar: "٣-٥ سنوات",
     },
+    postedDate: "2026-10-05",
     icon: Layers,
     overview: {
       en: "Manage 3D building information models, clash detection, and digital delivery protocols across architectural, structural, and electromechanical engineering packages.",
@@ -305,18 +331,24 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "Degree in Architecture, Civil, or Mechanical Engineering.",
-        "4+ years specialized experience in BIM Coordination using Revit and Navisworks.",
-        "Certification in ISO 19650 or Autodesk Certified Professional is an advantage.",
-        "Excellent spatial coordination and problem-solving skills.",
-      ],
-      ar: [
-        "شهادة في الهندسة المعمارية أو المدنية أو الميكانيكية.",
-        "خبرة ٤ سنوات فأكثر في تنسيق نماذج BIM باستخدام Revit و Navisworks.",
-        "شهادة احترافية في معايير ISO 19650 أو Autodesk Certified.",
-        "مهارات تحليلية وتنسيقية ممتازة.",
-      ],
+      education: {
+        en: ["Degree in Architecture, Civil, or Mechanical Engineering."],
+        ar: ["شهادة في الهندسة المعمارية أو المدنية أو الميكانيكية."],
+      },
+      experience: {
+        en: [
+          "4+ years specialized experience in BIM Coordination using Revit and Navisworks.",
+          "Excellent spatial coordination and problem-solving skills.",
+        ],
+        ar: [
+          "خبرة ٤ سنوات فأكثر في تنسيق نماذج BIM باستخدام Revit و Navisworks.",
+          "مهارات تحليلية وتنسيقية ممتازة.",
+        ],
+      },
+      licensing: {
+        en: ["Certification in ISO 19650 or Autodesk Certified Professional is an advantage."],
+        ar: ["شهادة احترافية في معايير ISO 19650 أو Autodesk Certified."],
+      },
     },
   },
   {
@@ -342,6 +374,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "8+ years",
       ar: "٨+ سنوات",
     },
+    postedDate: "2026-09-28",
     icon: HardHat,
     overview: {
       en: "Direct total site execution, timeline governance, budgetary control, and client communications for flagship commercial and institutional contracting developments.",
@@ -362,18 +395,24 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "B.Sc. in Civil Engineering or Construction Management.",
-        "PMP or Prince2 certification strongly preferred.",
-        "10+ years civil construction track record, with at least 4 years as Project Manager.",
-        "Proven ability to deliver complex projects on schedule and within budget in KSA.",
-      ],
-      ar: [
-        "بكالوريوس هندسة مدنية أو إدارة تشييد.",
-        "شهادة إدارة المشاريع الاحترافية (PMP) مفضلة.",
-        "خبرة ١٠ سنوات فأكثر في المقاولات الإنشائية منها ٤ سنوات كمدير مشروع.",
-        "سجل حافل بتسليم المشاريع وفق المواعيد والميزانيات داخل المملكة.",
-      ],
+      education: {
+        en: ["B.Sc. in Civil Engineering or Construction Management."],
+        ar: ["بكالوريوس هندسة مدنية أو إدارة تشييد."],
+      },
+      experience: {
+        en: [
+          "10+ years civil construction track record, with at least 4 years as Project Manager.",
+          "Proven ability to deliver complex projects on schedule and within budget in KSA.",
+        ],
+        ar: [
+          "خبرة ١٠ سنوات فأكثر في المقاولات الإنشائية منها ٤ سنوات كمدير مشروع.",
+          "سجل حافل بتسليم المشاريع وفق المواعيد والميزانيات داخل المملكة.",
+        ],
+      },
+      licensing: {
+        en: ["PMP or Prince2 certification strongly preferred."],
+        ar: ["شهادة إدارة المشاريع الاحترافية (PMP) مفضلة."],
+      },
     },
   },
   {
@@ -399,6 +438,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "3-5 years",
       ar: "٣-٥ سنوات",
     },
+    postedDate: "2026-09-21",
     icon: HardHat,
     overview: {
       en: "Oversee day-to-day concrete pouring, rebar inspection, structural steel erection, and quality assurance workflows across southern regional development projects.",
@@ -419,18 +459,26 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "B.Sc. in Civil Engineering.",
-        "3-5 years hands-on site experience in structural concrete and civil contracting in KSA.",
-        "Familiarity with Aramco / Royal Commission standards is a major plus.",
-        "Strong team leadership and communication skills.",
-      ],
-      ar: [
-        "بكالوريوس في الهندسة المدنية.",
-        "خبرة ٣-٥ سنوات في مواقع التشييد الإنشائي والخرسانات المسلحة في المملكة.",
-        "المعرفة باشتراطات أرامكو أو الهيئة الملكية ميزة إضافية.",
-        "مهارات قيادية وقدرة على إدارة العمالة الميدانية بفاعلية.",
-      ],
+      education: {
+        en: ["B.Sc. in Civil Engineering."],
+        ar: ["بكالوريوس في الهندسة المدنية."],
+      },
+      experience: {
+        en: [
+          "3-5 years hands-on site experience in structural concrete and civil contracting in KSA.",
+          "Familiarity with Aramco / Royal Commission standards is a major plus.",
+          "Strong team leadership and communication skills.",
+        ],
+        ar: [
+          "خبرة ٣-٥ سنوات في مواقع التشييد الإنشائي والخرسانات المسلحة في المملكة.",
+          "المعرفة باشتراطات أرامكو أو الهيئة الملكية ميزة إضافية.",
+          "مهارات قيادية وقدرة على إدارة العمالة الميدانية بفاعلية.",
+        ],
+      },
+      licensing: {
+        en: [],
+        ar: [],
+      },
     },
   },
   {
@@ -456,6 +504,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "3-5 years",
       ar: "٣-٥ سنوات",
     },
+    postedDate: "2026-09-14",
     icon: Wrench,
     overview: {
       en: "Lead preventive and corrective maintenance operations across commercial towers, educational complexes, and governmental facilities under TMYAZNA management.",
@@ -476,18 +525,26 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "Diploma or Bachelor's in Mechanical/Electrical Engineering or Facilities Management.",
-        "4+ years experience in integrated facilities management (IFM).",
-        "Hands-on expertise with BMS systems, chillers, and emergency generators.",
-        "Strong client service ethos and emergency response readiness.",
-      ],
-      ar: [
-        "دبلوم أو بكالوريوس في الهندسة الميكانيكية/الكهربائية أو إدارة المرافق.",
-        "خبرة ٤ سنوات فأكثر في إدارة وتشغيل المرافق المتكاملة (IFM).",
-        "خبرة عملية في أنظمة التحكم بالمباني BMS والمبردات والمولدات الاحتياطية.",
-        "مهارات تواصل عالية مع العملاء وجاهزية للتعامل مع الطوارئ.",
-      ],
+      education: {
+        en: ["Diploma or Bachelor's in Mechanical/Electrical Engineering or Facilities Management."],
+        ar: ["دبلوم أو بكالوريوس في الهندسة الميكانيكية/الكهربائية أو إدارة المرافق."],
+      },
+      experience: {
+        en: [
+          "4+ years experience in integrated facilities management (IFM).",
+          "Hands-on expertise with BMS systems, chillers, and emergency generators.",
+          "Strong client service ethos and emergency response readiness.",
+        ],
+        ar: [
+          "خبرة ٤ سنوات فأكثر في إدارة وتشغيل المرافق المتكاملة (IFM).",
+          "خبرة عملية في أنظمة التحكم بالمباني BMS والمبردات والمولدات الاحتياطية.",
+          "مهارات تواصل عالية مع العملاء وجاهزية للتعامل مع الطوارئ.",
+        ],
+      },
+      licensing: {
+        en: [],
+        ar: [],
+      },
     },
   },
   {
@@ -513,6 +570,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "3-5 years",
       ar: "٣-٥ سنوات",
     },
+    postedDate: "2026-09-08",
     icon: ShieldCheck,
     overview: {
       en: "Champion zero-harm occupational safety across active construction sites and operations facilities, conducting continuous risk assessments and toolbox talks.",
@@ -533,18 +591,26 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "NEBOSH IGC or OSHA 30-Hour certified.",
-        "3+ years active construction site safety experience in the GCC.",
-        "Deep familiarity with Saudi Ministry of Human Resources occupational safety regulations.",
-        "Fluent in English; Arabic proficiency is an asset.",
-      ],
-      ar: [
-        "شهادة نيبوش الدولية (NEBOSH IGC) أو أوشا ٣٠ ساعة معتمدة.",
-        "خبرة ٣ سنوات فأكثر في إدارة السلامة بمواقع المقاولات في دول الخليج.",
-        "دراية بلوائح واشتراطات السلامة والصحة المهنية لوزارة الموارد البشرية.",
-        "إجادة اللغة الإنجليزية؛ واللغة العربية ميزة إضافية.",
-      ],
+      education: {
+        en: [],
+        ar: [],
+      },
+      experience: {
+        en: [
+          "3+ years active construction site safety experience in the GCC.",
+          "Deep familiarity with Saudi Ministry of Human Resources occupational safety regulations.",
+          "Fluent in English; Arabic proficiency is an asset.",
+        ],
+        ar: [
+          "خبرة ٣ سنوات فأكثر في إدارة السلامة بمواقع المقاولات في دول الخليج.",
+          "دراية بلوائح واشتراطات السلامة والصحة المهنية لوزارة الموارد البشرية.",
+          "إجادة اللغة الإنجليزية؛ واللغة العربية ميزة إضافية.",
+        ],
+      },
+      licensing: {
+        en: ["NEBOSH IGC or OSHA 30-Hour certified."],
+        ar: ["شهادة نيبوش الدولية (NEBOSH IGC) أو أوشا ٣٠ ساعة معتمدة."],
+      },
     },
   },
   {
@@ -570,6 +636,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "5-8 years",
       ar: "٥-٨ سنوات",
     },
+    postedDate: "2026-10-19",
     icon: Sparkles,
     overview: {
       en: "Lead technical operations, chemical dosage oversight, and membrane filtration systems across industrial wastewater and reverse osmosis desalination plants.",
@@ -590,18 +657,26 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "B.Sc. in Chemical, Environmental, or Mechanical Engineering.",
-        "5+ years specialized in Reverse Osmosis (RO) or industrial wastewater treatment.",
-        "Strong knowledge of water chemistry, anti-scalants, and CIP cleaning protocols.",
-        "Problem-solving acumen in plant process troubleshooting.",
-      ],
-      ar: [
-        "بكالوريوس هندسة كيميائية أو بيئية أو ميكانيكية.",
-        "خبرة ٥ سنوات فأكثر في محطات التناضح العكسي RO أو معالجة المياه الصناعية.",
-        "فهم عميق لكيمياء المياه ومواد منع التكلس وغسيل الأغشية CIP.",
-        "مهارات تشخيص الأعطال وتطوير كفاءة التشغيل المائي.",
-      ],
+      education: {
+        en: ["B.Sc. in Chemical, Environmental, or Mechanical Engineering."],
+        ar: ["بكالوريوس هندسة كيميائية أو بيئية أو ميكانيكية."],
+      },
+      experience: {
+        en: [
+          "5+ years specialized in Reverse Osmosis (RO) or industrial wastewater treatment.",
+          "Strong knowledge of water chemistry, anti-scalants, and CIP cleaning protocols.",
+          "Problem-solving acumen in plant process troubleshooting.",
+        ],
+        ar: [
+          "خبرة ٥ سنوات فأكثر في محطات التناضح العكسي RO أو معالجة المياه الصناعية.",
+          "فهم عميق لكيمياء المياه ومواد منع التكلس وغسيل الأغشية CIP.",
+          "مهارات تشخيص الأعطال وتطوير كفاءة التشغيل المائي.",
+        ],
+      },
+      licensing: {
+        en: [],
+        ar: [],
+      },
     },
   },
   {
@@ -627,6 +702,7 @@ export const JOB_POSITIONS: JobPosition[] = [
       en: "3-5 years",
       ar: "٣-٥ سنوات",
     },
+    postedDate: "2026-10-26",
     icon: Users,
     overview: {
       en: "Spearhead talent acquisition for high-velocity project sites, managing national talent sourcing, technical interviews, visa mobilization, and onboarding logistics.",
@@ -647,18 +723,26 @@ export const JOB_POSITIONS: JobPosition[] = [
       ],
     },
     requirements: {
-      en: [
-        "Bachelor's in Human Resources, Business Administration, or related field.",
-        "3+ years recruitment experience within contracting, civil, or engineering sectors in KSA.",
-        "Deep knowledge of Saudi Labor Law and local workforce platforms.",
-        "High interpersonal agility and negotiation capability.",
-      ],
-      ar: [
-        "بكالوريوس موارد بشرية أو إدارة أعمال أو مجال ذي صلة.",
-        "خبرة ٣ سنوات فأكثر في توظيف قطاع المقاولات والهندسة داخل المملكة.",
-        "معرفة تامة بنظام العمل السعودي ومنصات التوظيف الحكومية.",
-        "مهارات تفاوض وتواصل ممتازة.",
-      ],
+      education: {
+        en: ["Bachelor's in Human Resources, Business Administration, or related field."],
+        ar: ["بكالوريوس موارد بشرية أو إدارة أعمال أو مجال ذي صلة."],
+      },
+      experience: {
+        en: [
+          "3+ years recruitment experience within contracting, civil, or engineering sectors in KSA.",
+          "Deep knowledge of Saudi Labor Law and local workforce platforms.",
+          "High interpersonal agility and negotiation capability.",
+        ],
+        ar: [
+          "خبرة ٣ سنوات فأكثر في توظيف قطاع المقاولات والهندسة داخل المملكة.",
+          "معرفة تامة بنظام العمل السعودي ومنصات التوظيف الحكومية.",
+          "مهارات تفاوض وتواصل ممتازة.",
+        ],
+      },
+      licensing: {
+        en: [],
+        ar: [],
+      },
     },
   },
 ];

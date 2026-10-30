@@ -113,7 +113,7 @@ function CredentialFeature({
               if (lensRef.current) lensRef.current.style.opacity = "0";
             }}
             aria-label={viewImageLabel}
-            className={`group relative block aspect-4/3 w-full cursor-none overflow-hidden bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 lg:min-h-[350px] lg:aspect-auto ${imageOrder}`}
+            className={`group relative block aspect-4/3 w-full cursor-none overflow-hidden  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 lg:min-h-[350px] lg:aspect-auto ${imageOrder}`}
           >
             <Image
               src={image}
@@ -122,13 +122,13 @@ function CredentialFeature({
               sizes="(max-width: 1024px) 100vw, 38vw"
               className="w-full object-contain"
             />
-            <span
+            {/* <span
               ref={lensRef}
               aria-hidden="true"
               className="pointer-events-none absolute z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-primary/90 text-sm font-semibold text-white opacity-0 backdrop-blur-md transition-opacity duration-150"
             >
               {lensLabel}
-            </span>
+            </span> */}
           </button>
         </div>
       </div>

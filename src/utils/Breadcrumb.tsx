@@ -34,6 +34,7 @@ export default function Breadcrumbs({
 }: BreadcrumbsProps) {
   const locale = useLocale();
   const localizedHomeLabel = homeLabel ?? (locale === "ar" ? "الرئيسية" : "Home");
+  const isRtl = locale === "ar";
 
   return (
     <section className="relative overflow-hidden pt-36 md:pt-44 pb-20 md:pb-28 text-white isolate">
@@ -49,7 +50,7 @@ export default function Breadcrumbs({
         fill
         priority
         sizes="100vw"
-        className="object-cover -z-20 scale-105 transition-transform duration-1000"
+        className={`object-cover -z-20 scale-105 transition-transform duration-1000 ${isRtl ? "-scale-x-100" : ""}`}
       />
 
       {/* Rich Brand-Blue / Dark architectural gradient scrim */}

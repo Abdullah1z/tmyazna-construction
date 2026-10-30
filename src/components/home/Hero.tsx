@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,16 +17,21 @@ import "swiper/css";
 const slides = [hero1, hero2, hero3];
 
 export default function Hero() {
+  const locale = useLocale();
   const t = useTranslations("Hero");
   const [activeSlide, setActiveSlide] = useState(0);
   const swiperRef = useRef<SwiperInstance | null>(null);
+
+  const isRtl = locale === "ar";
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
         <Swiper
+          key={locale}
           aria-label="Featured content"
           className="h-full w-full"
+          dir={isRtl ? "rtl" : "ltr"}
           modules={[Autoplay]}
           loop
           speed={900}
@@ -48,7 +53,7 @@ export default function Hero() {
                 fill
                 sizes="100vw"
                 priority={index === 0}
-                className="object-cover"
+                className={`object-cover ${isRtl ? "-scale-x-100" : ""}`}
               />
             </SwiperSlide>
           ))}

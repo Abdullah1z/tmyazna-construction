@@ -16,11 +16,11 @@ interface PresenceSectionProps {
 
 export default function PresenceSection({ isRtl = false }: PresenceSectionProps) {
   const t = useTranslations("Presence");
-  // selectedRegionId: null = "all" / overview, or specific region ID like "eastern-province", "riyadh", etc.
+  // selectedRegionId: null = "all" / overview, or a specific region ID like "eastern-province", "riyadh", etc.
   const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
   const [hoveredRegionId, setHoveredRegionId] = useState<string | null>(null);
 
-  // Handle region selection from map or tabs
+  // Handle region selection from map, tabs or overview list
   const handleSelectRegion = (regionId: string) => {
     if (regionId === "all") {
       setSelectedRegionId(null);
@@ -73,49 +73,51 @@ export default function PresenceSection({ isRtl = false }: PresenceSectionProps)
         </p>
       </div>
 
-      {/* 2. Pure Vertical Stacked: Top Centered Region Tabs */}
+      {/* 2. Region Tabs */}
       <PresenceRegionTabs
         selectedRegionId={selectedRegionId}
         onSelectRegion={handleSelectRegion}
         isRtl={isRtl}
       />
 
-      {/* 3. Pure Vertical Stacked: Middle Interactive Vector Map */}
-      <div className="relative rounded-3xl bg-gradient-to-b from-slate-50/90 via-slate-50/50 to-white border border-slate-200/80 shadow-xs p-4 sm:p-8 lg:p-12 mb-12 sm:mb-16 overflow-hidden">
-        {/* Subtle decorative grid background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.035] pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 65, 135, 0.4) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 65, 135, 0.4) 1px, transparent 1px)
-            `,
-            backgroundSize: "28px 28px",
-          }}
-        />
+      {/* 3. Map (larger) + Overview (smaller) side by side on desktop, stacked on small screens */}
+      <div className="flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8 mb-12 sm:mb-16">
+        {/* Map: larger share on desktop, full width on small screens */}
+        <div className="relative w-full lg:flex-[1.6] min-w-0 rounded-3xl bg-gradient-to-b from-slate-50/90 via-slate-50/50 to-white border border-slate-200/80 shadow-xs p-4 sm:p-8 lg:p-10 overflow-hidden">
+          {/* Subtle decorative grid background */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.035] pointer-events-none"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(0, 65, 135, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 65, 135, 0.4) 1px, transparent 1px)
+              `,
+              backgroundSize: "28px 28px",
+            }}
+          />
 
-        <SaudiArabiaMap
-          selectedRegionId={selectedRegionId}
-          onSelectRegion={handleSelectRegion}
-          hoveredRegionId={hoveredRegionId}
-          onHoverRegion={setHoveredRegionId}
-          isRtl={isRtl}
-        />
-      </div>
+          <SaudiArabiaMap
+            selectedRegionId={selectedRegionId}
+            onSelectRegion={handleSelectRegion}
+            hoveredRegionId={hoveredRegionId}
+            onHoverRegion={setHoveredRegionId}
+            isRtl={isRtl}
+          />
+        </div>
 
-      {/* 4. Pure Vertical Stacked: Bottom Details & Card Area */}
-      <div className="w-full">
-        {/* State A: Initial / All Regions (Image 1) */}
-        {!selectedRegion && (
+        {/* Overview: smaller share on desktop, full width below the map on small screens */}
+        <div className="w-full lg:flex-1 min-w-0">
           <PresenceActivitiesOverview
             onSelectRegion={handleSelectRegion}
             onHoverRegion={setHoveredRegionId}
             isRtl={isRtl}
           />
-        )}
+        </div>
+      </div>
 
-        {/* State B: Selected Region with Projects (Image 3) */}
+      {/* 4. Project card / empty card stays below */}
+      <div className="w-full">
         {selectedRegion && selectedRegion.hasProjects && (
           <PresenceProjectCard
             projects={regionProjects}
@@ -124,7 +126,6 @@ export default function PresenceSection({ isRtl = false }: PresenceSectionProps)
           />
         )}
 
-        {/* State C: Selected Region with NO Projects (Image 4) */}
         {selectedRegion && !selectedRegion.hasProjects && (
           <PresenceEmptyCard
             regionName={regionDisplayName}

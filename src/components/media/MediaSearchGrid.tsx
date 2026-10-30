@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import { Search, X, ChevronLeft, ChevronRight, FileSearch } from "lucide-react";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
+import { Search, X, ChevronLeft, ChevronRight, FileSearch, ArrowRight } from "lucide-react";
 
 import BlogCard from "@/components/home/BlogCard";
 import { Input } from "@/components/ui/input";
+import { Link } from "@/i18n/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -35,11 +38,25 @@ export default function MediaSearchGrid({
 }: MediaSearchGridProps) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const locale = useLocale();
+  const isRtl = locale === "ar";
+  const blogTranslations = useTranslations("Blog");
 
-  // Filter posts by query (title + category + excerpt, bilingual)
+  const latestPost = useMemo(
+    () =>
+      BLOG_POSTS.reduce((latest, post) =>
+        post.date > latest.date ? post : latest
+      ),
+    []
+  );
+
+  // Feature the latest post by default; search still includes every post.
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
-    if (!q) return BLOG_POSTS;
+    const archivePosts = BLOG_POSTS.filter(
+      (post) => post.slug !== latestPost.slug
+    );
+    if (!q) return archivePosts;
     return BLOG_POSTS.filter((post) => {
       const fields = [
         post.title.en,
@@ -51,7 +68,7 @@ export default function MediaSearchGrid({
       ];
       return fields.some((f) => f.toLowerCase().includes(q));
     });
-  }, [query]);
+  }, [latestPost, query]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
 
@@ -83,9 +100,74 @@ export default function MediaSearchGrid({
     .replace("{current}", String(page))
     .replace("{total}", String(totalPages));
 
+  const latestTitle = latestPost
+    ? isRtl
+      ? latestPost.title.ar
+      : latestPost.title.en
+    : "";
+  const dateObj = latestPost ? new Date(latestPost.date) : null;
+  const latestDate = dateObj
+    ? new Intl.DateTimeFormat(isRtl ? "ar-SA" : "en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }).format(dateObj)
+    : "";
+
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-background">
       <div className="container">
+        {latestPost && !query.trim() && (
+          <article
+            className="mb-12 grid overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:border-secondary hover:shadow-[inset_0_12px_40px_rgba(0,134,255,0.12)] md:grid-cols-2"
+            dir="ltr"
+          >
+            <div className="group relative min-h-64 overflow-hidden md:min-h-96">
+              <Image
+                src={latestPost.image}
+                alt={latestTitle}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                placeholder="blur"
+              />
+            </div>
+
+            <div
+              className="flex flex-col justify-center p-6 sm:p-8 lg:p-12"
+              dir={isRtl ? "rtl" : "ltr"}
+            >
+              <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                {/* <span className="rounded-full bg-secondary/10 px-3 py-1 font-semibold text-primary">
+                  {isRtl ? latestPost.category.ar : latestPost.category.en}
+                </span> */}
+                <time dateTime={latestPost.date} className="text-slate-500">
+                  {latestDate}
+                </time>
+              </div>
+
+              <h2 className="mb-4 text-2xl font-bold leading-snug text-foreground sm:text-3xl lg:text-4xl">
+                {latestTitle}
+              </h2>
+              <p className="mb-7 text-sm leading-7 text-slate-600 sm:text-base">
+                {isRtl ? latestPost.excerpt.ar : latestPost.excerpt.en}
+              </p>
+
+              <Link
+                href={`/media/${latestPost.slug}`}
+                aria-label={`${blogTranslations("readMore")} — ${latestTitle}`}
+                className="group/link inline-flex w-fit items-center gap-2 font-semibold text-primary transition-colors hover:text-secondary"
+              >
+                <span>{blogTranslations("readMore")}</span>
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover/link:translate-x-1 rtl:rotate-180 rtl:group-hover/link:-translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
+          </article>
+        )}
 
         {/* ── Search bar ── */}
         <div className="max-w-2xl mx-auto mb-12">

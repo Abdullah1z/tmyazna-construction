@@ -17,7 +17,7 @@ export default function ServiceCatalog({
   if (!items || items.length === 0) return null;
 
   return (
-    <aside id="service-catalog" className="w-full">
+    <aside id="service-catalog" className="w-full mt-10">
       <div className="mb-5 border-b border-slate-200 pb-4">
         <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-secondary">
           {isRtl ? "الفهرس والحلول" : "EQUIPMENT & SOLUTIONS"}
@@ -27,7 +27,7 @@ export default function ServiceCatalog({
         </h2>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
         {items.map((item) => (
           <div
             key={item.id}

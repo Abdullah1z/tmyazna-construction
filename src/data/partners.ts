@@ -4,8 +4,8 @@ import almoallamLogo from "@/assets/partner/Almoallam-logo.svg";
 import bicscLogo from "@/assets/partner/BICSc-Blue-logo-RGB-01-e1639057859456.png";
 import jordanPioneerLogo from "@/assets/partner/Jordan-Pioneer-Logo-White.png";
 import abilityLogo from "@/assets/partner/ability.svg";
-import alHajryLogo from "@/assets/partner/al-hajry-footer-logo.png";
-import alinmaLogo from "@/assets/partner/alinma-logo.svg";
+import alHajryLogo from "@/assets/partner/al-hajry-footer-logo-black.png";
+import alinmaLogo from "@/assets/partner/alinma-logo-black.svg";
 import awacoLogo from "@/assets/partner/awacosa.jpg";
 import kahatainLogo from "@/assets/partner/kahatain.png";
 import libanetLogo from "@/assets/partner/libanet.svg";
@@ -62,7 +62,6 @@ export const PARTNER_CATEGORIES: PartnerCategory[] = [
       { id: "setraa", nameKey: "setraa", initials: "SA", logo: setraaLogo, href: "http://www.setraa.com" },
       { id: "alNabati", nameKey: "alNabati", initials: "AN" },
       { id: "jordanPioneer", nameKey: "jordanPioneer", initials: "JP", logo: jordanPioneerLogo, href: "https://jordanpioneer.com/" },    
-      { id: "almoallam", nameKey: "almoallam", initials: "AM", logo: almoallamLogo, href: "https://almoallam.com/" },
       { id: "saudiMeters", nameKey: "saudiMeters", initials: "SM" ,logo: saudiMetersLogo, href: "https://saudimeters.com/"},
       { id: "shapoorji", nameKey: "shapoorji", initials: "SP" , logo:shapoorjiLogo ,href: "https://www.shapoorjipallonji.com/" },
       { id: "rtcc", nameKey: "rtcc", initials: "RT", logo: rttLogo, href: "https://www.rtcc.com.sa/" },
@@ -78,6 +77,7 @@ export const PARTNER_CATEGORIES: PartnerCategory[] = [
       { id: "libanet", nameKey: "libanet", initials: "LI", logo: libanetLogo, href: "https://libanet.aero" },
       { id: "ncms", nameKey: "ncms", initials: "NC", href: "https://www.ncms.sa/ar" },
       { id: "alHajry", nameKey: "alHajry", initials: "AH", logo: alHajryLogo, href: "https://alhajry-overseas.com.sa" },
+      { id: "almoallam", nameKey: "almoallam", initials: "AM", logo: almoallamLogo, href: "https://almoallam.com/" },
     ],
   },
   {

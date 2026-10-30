@@ -17,6 +17,7 @@ export default function BlogGrid({
 }: BlogGridProps) {
   const t = useTranslations("Blog");
   const posts = limit ? BLOG_POSTS.slice(0, limit) : BLOG_POSTS;
+  const featuredPost = posts[posts.length - 1];
 
   return (
     <section className="py-20 md:py-24 lg:py-28 w-full relative overflow-hidden bg-background">
@@ -34,8 +35,10 @@ export default function BlogGrid({
           </div>
         )}
 
+        {featuredPost && <BlogCard post={featuredPost} featured />}
+
         <div
-          className="grid gap-7"
+          className="mt-7 grid gap-7"
           style={{
             gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
           }}

@@ -43,6 +43,8 @@ export interface ProjectStat {
   suffix?: string;
   prefixAr?: string;
   suffixAr?: string;
+  unit?:string;
+  unitAr?:string;
   decimals?: number;
   label: string;
   labelAr: string;
@@ -64,12 +66,13 @@ export interface LocalizedProjectItem extends ProjectItem {
 export const PROJECTS_STATS: ProjectStat[] = [
   { target: 40, suffix: "+", label: "Projects Delivered", labelAr: "مشروعاً تم إنجازه" },
   {
-    target: 1.6,
+    target: 1600,
     prefix: "SAR ",
-    suffix: "B",
     prefixAr: "",
-    suffixAr: " مليار ريال",
-    decimals: 1,
+    suffix: "",
+    suffixAr: " ريال",
+    unit: "(million)",
+    unitAr: "(مليون)",
     label: "Portfolio Value",
     labelAr: "قيمة المحفظة",
   },

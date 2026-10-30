@@ -14,8 +14,10 @@ export default function PresenceRegionTabs({
   isRtl = false,
 }: PresenceRegionTabsProps) {
   return (
-    <div className="w-full flex justify-center mb-8 sm:mb-12">
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-4xl px-2">
+    <div className="w-full mb-8 sm:mb-12 relative">
+      <div
+        className="flex flex-nowrap items-center gap-2 sm:gap-2.5 px-2 py-2 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {REGION_TABS.map((tab) => {
           const isActive =
             (selectedRegionId === null && tab.id === "all") ||
@@ -30,7 +32,7 @@ export default function PresenceRegionTabs({
               type="button"
               onClick={() => onSelectRegion(tab.id)}
               className={`
-                group relative inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold
+                group relative inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap
                 transition-all duration-200 cursor-pointer select-none border shrink-0
                 ${
                   isActive
@@ -39,7 +41,6 @@ export default function PresenceRegionTabs({
                 }
               `}
             >
-              {/* Status indicator dot */}
               <span
                 className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${
                   isActive

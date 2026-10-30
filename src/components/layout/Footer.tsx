@@ -67,7 +67,13 @@ export default function Footer() {
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-20">
           {/* Logo & Tagline Column */}
-          <div className="lg:col-span-3 flex flex-col items-start gap-4 pr-4">
+          <div
+            className={`lg:col-span-3 flex flex-col gap-4 ${
+              isRtl
+                ? "items-end text-right md:col-span-2"
+                : "items-start pr-4"
+            }`}
+          >
             <Link href="/" className="inline-block transition-opacity hover:opacity-80">
               <Image
                 src={logo}
@@ -75,7 +81,10 @@ export default function Footer() {
                 className="w-32 md:w-40 brightness-0 invert object-contain"
               />
             </Link>
-            <div dir={textDirection} className="flex flex-col gap-1 mt-2 text-[14px] text-gray-300 font-medium">
+            <div
+              dir={textDirection}
+              className="mt-2 flex w-full flex-col gap-1 text-[14px] font-medium text-gray-300"
+            >
               <p>{t("tagline")}</p>
             </div>
           </div>

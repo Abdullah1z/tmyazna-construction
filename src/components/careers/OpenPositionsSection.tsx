@@ -2,22 +2,36 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { Briefcase, MapPin } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { CAREER_DEPARTMENTS, JOB_POSITIONS, type JobPosition } from "@/data/careersData";
 import FadeUp from "@/utils/FadeUp";
+import RollingButton from "@/utils/RollingButton";
+
+type JobWithPurpose = JobPosition & {
+  purpose?: { en: string; ar: string };
+};
 
 export default function OpenPositionsSection() {
   const t = useTranslations("Careers");
   const locale = useLocale();
   const isAr = locale === "ar";
   const [activeDepartment, setActiveDepartment] = useState<string>("all");
+  const [showAllPositions, setShowAllPositions] = useState(false);
+  const jobsToggleLabel = showAllPositions
+    ? isAr
+      ? "عرض أقل"
+      : "Show less"
+    : isAr
+      ? "عرض جميع الوظائف"
+      : "View all jobs";
 
   const filteredPositions = activeDepartment === "all"
     ? JOB_POSITIONS
     : JOB_POSITIONS.filter((pos) => pos.departmentId === activeDepartment);
-
-  const ArrowIcon = isAr ? ArrowLeft : ArrowRight;
+  const visiblePositions = showAllPositions
+    ? filteredPositions
+    : filteredPositions.slice(0, 6);
 
   return (
     <section id="open-positions" className="relative w-full py-16 sm:py-24 bg-slate-50/60 dark:bg-card/40 scroll-mt-24">
@@ -45,7 +59,7 @@ export default function OpenPositionsSection() {
           </FadeUp>
         </div>
 
-        {/* ExploreTabNav-Style Department Filter Tabs (Matching Service Page Design - Centered) */}
+        {/* Department Filter Tabs */}
         <div className="w-full mb-10 sm:mb-14">
           <div className="flex items-center justify-start sm:justify-center gap-2.5 sm:gap-3 overflow-x-auto py-2 px-1 scrollbar-none scroll-smooth">
             {CAREER_DEPARTMENTS.map((dept) => {
@@ -57,7 +71,10 @@ export default function OpenPositionsSection() {
                 <button
                   key={dept.id}
                   type="button"
-                  onClick={() => setActiveDepartment(dept.id)}
+                  onClick={() => {
+                    setActiveDepartment(dept.id);
+                    setShowAllPositions(false);
+                  }}
                   className={`
                     relative flex items-center gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold
                     whitespace-nowrap transition-all duration-200 ease-out cursor-pointer select-none shrink-0 border
@@ -81,71 +98,86 @@ export default function OpenPositionsSection() {
           </div>
         </div>
 
-        {/* Job Positions List (Engineered to match 1st Image layout with Secondary Hover state) */}
-        <div className="space-y-4 sm:space-y-5">
-          {filteredPositions.map((job, idx) => {
-            const title = isAr ? job.title.ar : job.title.en;
-            const department = isAr ? job.department.ar : job.department.en;
-            const location = isAr ? job.location.ar : job.location.en;
-            const empType = isAr ? job.type.ar : job.type.en;
+        {/* Job Positions Grid (3 per row) */}
+        {filteredPositions.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {visiblePositions.map((job, idx) => {
+              const title = isAr ? job.title.ar : job.title.en;
+              const department = isAr ? job.department.ar : job.department.en;
+              const location = isAr ? job.location.ar : job.location.en;
+              const empType = isAr ? job.type.ar : job.type.en;
+              const purposeObj = (job as JobWithPurpose).purpose;
+              const purpose = purposeObj ? (isAr ? purposeObj.ar : purposeObj.en) : department;
 
-            return (
-              <FadeUp key={job.id} delay={0.06 * (idx % 6)} y={20}>
-                <Link
-                  href={`/careers/${job.id}`}
-                  className="group block w-full rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 bg-white dark:bg-card border border-gray-200/90 dark:border-white/10 shadow-sm transition-all duration-300 ease-out hover:bg-secondary hover:border-secondary hover:shadow-2xl hover:-translate-y-0.5 cursor-pointer"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
-                    {/* Left: Job Title & Department */}
-                    <div className="md:col-span-5 flex flex-col justify-center">
-                      <h3 className="text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-foreground group-hover:text-white transition-colors duration-200 leading-snug">
+              const DeptIcon =
+                CAREER_DEPARTMENTS.find((d) => d.id === job.departmentId)?.icon ?? Briefcase;
+
+              return (
+                <FadeUp key={job.id} delay={0.06 * (idx % 6)} y={20}>
+                  <Link
+                    href={`/careers/${job.id}`}
+                    className="group flex h-full flex-col rounded-2xl border border-gray-200/90 bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-secondary/60 hover:shadow-xl dark:border-white/10 dark:bg-card"
+                  >
+                    {/* Icon + Title */}
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-secondary text-white">
+                        <DeptIcon className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
+                      </span>
+                      <h3 className="text-xl font-bold leading-snug tracking-tight text-foreground sm:text-2xl">
                         {title}
                       </h3>
-                      <p className="text-sm font-medium text-muted-foreground group-hover:text-white/85 transition-colors duration-200 mt-1">
-                        {department}
+                    </div>
+
+                    {/* Purpose */}
+                    <div className="mt-5 flex-1">
+                      <p className="text-sm font-bold text-foreground">
+                        {isAr ? "الغرض من الوظيفة / الهدف" : "Job Purpose / Objective"}
+                      </p>
+                      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                        {purpose}
                       </p>
                     </div>
 
-                    {/* Middle: Location */}
-                    <div className="md:col-span-3 flex flex-col justify-center">
-                      <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground group-hover:text-white/75 transition-colors duration-200 mb-0.5">
-                        {t("locationLabel")}
-                      </span>
-                      <span className="text-sm sm:text-base font-semibold text-foreground group-hover:text-white transition-colors duration-200">
-                        {location}
-                      </span>
-                    </div>
-
-                    {/* Right: Employment Type */}
-                    <div className="md:col-span-3 flex flex-col justify-center">
-                      <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground group-hover:text-white/75 transition-colors duration-200 mb-0.5">
-                        {t("typeLabel")}
-                      </span>
-                      <span className="text-sm sm:text-base font-semibold text-foreground group-hover:text-white transition-colors duration-200">
-                        {empType}
-                      </span>
-                    </div>
-
-                    {/* Far Right: Arrow Action */}
-                    <div className="md:col-span-1 flex items-center justify-end">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-100 dark:bg-white/10 group-hover:bg-white/20 text-foreground group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:translate-x-1.5 rtl:group-hover:-translate-x-1.5 shadow-xs">
-                        <ArrowIcon size={20} strokeWidth={2.5} />
+                    {/* Pills + Apply button */}
+                    <div className="mt-6 flex items-end justify-between gap-3">
+                      <div className="flex min-w-0 flex-col gap-2">
+                        <span className="inline-flex w-fit items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500 dark:bg-white/10 dark:text-white/60">
+                          <MapPin className="h-3.5 w-3.5 shrink-0 text-secondary" aria-hidden="true" />
+                          <span className="truncate">{location}</span>
+                        </span>
+                        <span className="inline-flex w-fit items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-2 text-sm font-medium text-slate-500 dark:bg-white/10 dark:text-white/60">
+                          <Briefcase className="h-3.5 w-3.5 shrink-0 text-secondary" aria-hidden="true" />
+                          <span className="truncate">{empType}</span>
+                        </span>
                       </div>
-                    </div>
-                  </div>
-                </Link>
-              </FadeUp>
-            );
-          })}
 
-          {filteredPositions.length === 0 && (
-            <div className="text-center py-16 bg-white dark:bg-card rounded-2xl border border-gray-200 dark:border-white/10">
-              <p className="text-muted-foreground text-base">
-                {isAr ? "لا توجد وظائف شاغرة حالياً في هذا القسم." : "No active positions found in this department."}
-              </p>
-            </div>
-          )}
-        </div>
+                      <span className="shrink-0 rounded-full border border-secondary px-5 py-2.5 text-sm font-semibold text-secondary transition-colors duration-200 group-hover:bg-secondary group-hover:text-white">
+                        {isAr ? "قدّم الآن" : "Apply Now"}
+                      </span>
+                    </div>
+                  </Link>
+                </FadeUp>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-white dark:bg-card rounded-2xl border border-gray-200 dark:border-white/10">
+            <p className="text-muted-foreground text-base">
+              {isAr ? "لا توجد وظائف شاغرة حالياً في هذا القسم." : "No active positions found in this department."}
+            </p>
+          </div>
+        )}
+
+        {filteredPositions.length > 6 && (
+          <div className="mt-10 flex justify-center">
+            <RollingButton
+              text={jobsToggleLabel}
+              onClick={() => setShowAllPositions((isShowingAll) => !isShowingAll)}
+              variant="outline"
+              ariaLabel={jobsToggleLabel}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

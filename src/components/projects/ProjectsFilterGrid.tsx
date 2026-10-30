@@ -80,17 +80,21 @@ export default function ProjectsFilterGrid({
   return (
     <section id="all-projects" className="container mb-24 lg:mb-32 scroll-mt-28">
       {/* Header and Filter Tabs */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-slate-200/80">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
+      <div className="flex flex-col  gap-6 mb-10 pb-6 border-b border-slate-200/80">
+        <div className="flex flex-col justify-center items-center w-full">
+          <div className="flex justify-center items-center w-full gap-2 mb-2">
             <span className="w-8 h-[2px] bg-secondary" />
             <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-secondary">
               {isRtl ? "كافة المشاريع" : "ALL PROJECTS"}
             </span>
+            <span className="w-8 h-[2px] bg-secondary" />
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#001833] tracking-tight">
             {isRtl ? "استكشف المشاريع حسب القطاع" : "Filter the portfolio by sector"}
           </h2>
+          <p className="text-sm sm:text-base text-muted-foreground mt-2">
+              {isRtl ? "ضبط عامل التصفية حسب المحفظة" : "Set filter by portfolio"}
+            </p>
         </div>
 
         {/* Sector Filter Pills */}

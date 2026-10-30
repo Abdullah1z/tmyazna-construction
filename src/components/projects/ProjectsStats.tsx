@@ -47,6 +47,10 @@ function AnimatedStatCounter({
   }, [hasStarted, target]);
 
   const formatted = decimals > 0 ? currentValue.toFixed(decimals) : Math.round(currentValue).toString();
+  // const formatted =
+  //   decimals > 0
+  //     ? currentValue.toFixed(decimals)
+  //     : Math.round(currentValue).toLocaleString("en-US");
 
   return (
     <span>
@@ -73,7 +77,7 @@ export default function ProjectsStats({ isRtl = false }: ProjectsStatsProps) {
           observer.disconnect();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.25 },
     );
 
     if (sectionRef.current) {
@@ -84,7 +88,10 @@ export default function ProjectsStats({ isRtl = false }: ProjectsStatsProps) {
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative -mt-10 sm:-mt-14 z-20 container mb-16 lg:mb-20">
+    <div
+      ref={sectionRef}
+      className="relative -mt-10 sm:-mt-14 z-20 container mb-16 lg:mb-20"
+    >
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border border-slate-200/90 shadow-xl">
         {PROJECTS_STATS.map((stat, idx) => (
           <div
@@ -95,15 +102,23 @@ export default function ProjectsStats({ isRtl = false }: ProjectsStatsProps) {
                 : ""
             }`}
           >
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#001833] leading-none mb-2 font-mono">
-              <AnimatedStatCounter
-                target={stat.target}
-                prefix={isRtl ? stat.prefixAr ?? stat.prefix : stat.prefix}
-                suffix={isRtl ? stat.suffixAr ?? stat.suffix : stat.suffix}
-                decimals={stat.decimals}
-                hasStarted={hasAnimated}
-              />
+            <span className="flex flex-wrap items-baseline gap-x-2 text-3xl sm:text-4xl font-bold tracking-tight text-[#001833] leading-none mb-2 font-mono">
+              <span className="whitespace-nowrap">
+                <AnimatedStatCounter
+                  target={stat.target}
+                  prefix={isRtl ? (stat.prefixAr ?? stat.prefix) : stat.prefix}
+                  suffix={isRtl ? (stat.suffixAr ?? stat.suffix) : stat.suffix}
+                  decimals={stat.decimals}
+                  hasStarted={hasAnimated}
+                />
+              </span>
+              {(isRtl ? stat.unitAr : stat.unit) && (
+                <span className="text-sm sm:text-base font-medium text-slate-500 whitespace-nowrap">
+                  {isRtl ? stat.unitAr : stat.unit}
+                </span>
+              )}
             </span>
+
             <span className="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">
               {isRtl ? stat.labelAr : stat.label}
             </span>

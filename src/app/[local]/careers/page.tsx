@@ -17,19 +17,20 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function CareersPage() {
   return (
     <main className="min-h-screen bg-background">
-      {/* Hero Section with Breadcrumbs & Action Banner */}
+
       <CareersHero />
-
-      {/* Why Work With Us & Life at TMYAZNA */}
-      <WhyWorkWithUs />
-
-      {/* Open Positions with Service-style tabs & Image 1 cards */}
+      
       <OpenPositionsSection />
 
-      {/* 4 Hiring Process Stages */}
+      <WhyWorkWithUs />
+
+
+
+
+
       <HiringProcessSection />
 
-      {/* Don't see your role? Send CV banner */}
+
       <CareersCtaBanner />
     </main>
   );

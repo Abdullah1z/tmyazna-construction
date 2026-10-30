@@ -52,7 +52,7 @@ export default function ProjectsRegionCTA({
 
           <div className="shrink-0">
             <RollingButton
-              text={isRtl ? "استكشف المشاريع الإقليمية" : "Connect With Us"}
+              text={isRtl ? "افتح الخريطة" : "Open The Map"}
               href="/presence"
               variant="secondary"
               className="shadow-xl"
