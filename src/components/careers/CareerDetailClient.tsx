@@ -248,6 +248,7 @@ export default function CareerDetailClient({ jobId }: CareerDetailClientProps) {
               {isAr ? "الوظائف المتاحة" : "Open positions"} ({JOB_POSITIONS.length})
             </p>
 
+            
             <div
               ref={listRef}
               className="relative flex max-h-64 flex-col gap-3 overflow-y-auto overscroll-y-contain p-1 pb-3 [scrollbar-width:thin] [scrollbar-color:#cbd5e1_transparent] lg:max-h-[calc(100vh-7rem)] lg:pb-1"
