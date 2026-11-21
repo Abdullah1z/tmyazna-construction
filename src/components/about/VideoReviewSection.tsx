@@ -8,13 +8,12 @@ import FadeUp from "@/utils/FadeUp";
 import SlideHeadingLeft from "@/utils/SlideHeading";
 
 import videoPoster from "@/assets/service/srvice-home.png";
-import partner2 from "@/assets/partner/partner2.png";
-import partner3 from "@/assets/partner/partner3.png";
 import partner4 from "@/assets/partner/partner4.png";
 import partner5 from "@/assets/partner/partner5.png";
 import partner6 from "@/assets/partner/partner6.png";
+import partner7 from "@/assets/partner/partner7.svg";
 
-const partnerLogos = [partner2, partner3, partner4, partner5, partner6];
+const partnerLogos = [partner7, partner4, partner5, partner6];
 
 export default function VideoReviewSection() {
   const t = useTranslations("AboutPage.videoReview");

@@ -55,7 +55,7 @@ export default function Breadcrumbs({
 
       {/* Rich Brand-Blue / Dark architectural gradient scrim */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-[#001833]/95 via-[#002b5c]/45 to-[#004187]/40 -z-10"
+        className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-[#001833]/95 via-[#002b5c]/45 to-[#004187]/40 -z-10"
         aria-hidden="true"
       />
 
@@ -81,8 +81,8 @@ export default function Breadcrumbs({
           {/* Eyebrow badge or accent line */}
           {eyebrow && (
             <FadeUp duration={0.6} y={15} threshold="top 95%">
-              <div className="flex items-center gap-2.5 text-secondary text-xs sm:text-sm font-bold uppercase tracking-widest">
-                <span className="w-8 h-[2px] bg-secondary" />
+              <div className="flex items-center gap-2.5 text-white text-xs sm:text-sm font-bold uppercase tracking-widest">
+                <span className="w-8 h-[2px] bg-white" />
                 <span>{eyebrow}</span>
               </div>
             </FadeUp>
@@ -121,7 +121,7 @@ export default function Breadcrumbs({
                 href="/"
                 className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
               >
-                <House size={14} className="text-secondary" />
+                <House size={14} className="text-white" />
                 <span>{localizedHomeLabel}</span>
               </Link>
 
@@ -130,7 +130,7 @@ export default function Breadcrumbs({
                 className="text-white/40 rtl:rotate-180 shrink-0"
               />
 
-              <span className="text-secondary font-semibold">
+              <span className="text-white font-semibold">
                 {title}
               </span>
             </nav>

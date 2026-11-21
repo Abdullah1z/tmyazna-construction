@@ -21,7 +21,7 @@ export default function StorySection() {
               <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border/60 bg-card shadow-lg">
                 <Image
                   src={blueprintImg}
-                  alt={t("companyName")}
+                  alt={t.has("companyName") ? t("companyName") : t("headingPart1")}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -37,9 +37,14 @@ export default function StorySection() {
                   <span>{t("eyebrow")}</span>
                 </div> */}
                 <SlideHeadingLeft as="h3" className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                  {t("headingPart1")}{" "}
-                  <span className="text-primary dark:text-secondary">{t("companyName")}</span>{" "}
-                  {t("headingPart2")}
+                  {t("headingPart1")}
+                  {t.has("companyName") && (
+                    <>
+                      {" "}
+                      <span className="text-primary dark:text-secondary">{t("companyName")}</span>{" "}
+                      {t("headingPart2")}
+                    </>
+                  )}
                 </SlideHeadingLeft>
                 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                   {t("p1")}

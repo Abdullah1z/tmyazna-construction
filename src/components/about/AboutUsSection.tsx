@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { CheckCircle2, Award, ArrowUpRight } from "lucide-react";
 import FadeUp from "@/utils/FadeUp";
 import SlideHeadingLeft from "@/utils/SlideHeading";
-import constructionImg from "@/assets/home/why-choose/why3.png";
+import constructionImg from "@/assets/navbar/tmyazna-vertical.png";
 
 export default function AboutUsSection() {
   const t = useTranslations("AboutPage.aboutSection");
@@ -71,22 +71,14 @@ export default function AboutUsSection() {
           {/* Right Column: Imagery with Floating Badge (as in Image 1) */}
           <div className="lg:col-span-5 relative">
             <FadeUp delay={0.2} duration={1} y={35}>
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Main Hero Card Image */}
-                <div className="relative aspect-[4/5] sm:aspect-[3/4] w-full overflow-hidden rounded-2xl border border-border/50 shadow-2xl group">
-                  <Image
-                    src={constructionImg}
-                    alt={t("headingPart2")}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    priority
-                  />
-                  {/* Subtle Gradient vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                </div>
-
-                {/* Floating Accent Card (Bottom corner overlay matching Image 1) */}
+              <Image
+                src={constructionImg}
+                alt={t("headingPart2")}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="h-auto w-full"
+                priority
+              />
+              {/* Floating Accent Card (Bottom corner overlay matching Image 1) */}
                 {/* <div className="absolute -bottom-6 -start-4 sm:-bottom-8 sm:-start-6 max-w-[280px] sm:max-w-[310px] rounded-2xl bg-secondary p-5 sm:p-6 text-white shadow-xl shadow-secondary/25 transition-transform duration-300 hover:-translate-y-1 group/badge cursor-pointer">
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
@@ -100,7 +92,6 @@ export default function AboutUsSection() {
                     {t("badgeText")}
                   </p>
                 </div> */}
-              </div>
             </FadeUp>
           </div>
         </div>

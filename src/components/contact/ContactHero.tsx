@@ -34,8 +34,8 @@ export default function ContactHero() {
         <div className="max-w-3xl flex flex-col items-start gap-4">
           {/* Eyebrow with hairline indicator */}
           <FadeUp duration={0.6} y={15} threshold="top 95%">
-            <div className="flex items-center gap-2.5 text-secondary text-xs sm:text-sm font-bold uppercase tracking-widest">
-              <span className="w-8 h-[2px] bg-secondary" />
+            <div className="flex items-center gap-2.5 text-white text-xs sm:text-sm font-bold uppercase tracking-widest">
+              <span className="w-8 h-[2px] bg-white" />
               <span>{t("eyebrow")}</span>
             </div>
           </FadeUp>

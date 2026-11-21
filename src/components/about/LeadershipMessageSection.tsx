@@ -18,8 +18,8 @@ export default function LeadershipMessageSection() {
           {/* Left Column: Portrait Card */}
           <div className="lg:col-span-4">
             <FadeUp delay={0.15} y={30}>
-              <div className="group relative mx-auto max-w-sm rounded-2xl border border-border/70 bg-card shadow-xl transition-all duration-300 hover:shadow-2xl">
-                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-muted">
+              <div className="group relative mx-auto max-w-sm border border-border/70 bg-card shadow-xl transition-all duration-300 hover:shadow-2xl">
+                <div className="relative aspect-[3/4] w-full overflow-hidden bg-muted">
                   <Image
                     src={leaderImg}
                     alt={t("leaderName")}

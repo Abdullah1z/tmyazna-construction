@@ -68,7 +68,7 @@ export default function Hero() {
       <div className="container relative z-20 h-full w-full">
         <div className="relative flex h-full w-full flex-col items-start justify-center">
           <div className="mb-5 flex items-center gap-2">
-            <span className="h-0.75 w-12 bg-primary" />
+            <span className="h-0.75 w-12 bg-white" />
             <span className="h-0.75 w-5 bg-white/60" />
           </div>
           <div className="h-16 w-full max-w-5xl sm:h-20 md:h-26 lg:h-34 xl:h-38">
@@ -81,13 +81,13 @@ export default function Hero() {
             >
               {activeSlide === 1 ? t("slide2TitlePart1") : activeSlide === 2 ? t("slide3TitlePart1") : t("titlePart1")}{" "}
               <br />
-              <span className="text-primary">
+              <span className="text-white">
                 {activeSlide === 1 ? t("slide2TitlePart2") : activeSlide === 2 ? t("slide3TitlePart2") : t("titlePart2")}
               </span>
             </SplitReveal>
           </div>
           <div className="mt-6 flex h-28 items-start sm:h-24 lg:h-16">
-            <p className="border-l-[3px] border-primary py-1 pl-4 text-base font-semibold italic leading-6 text-white sm:text-lg rtl:border-r-[3px] rtl:border-l-0 rtl:pl-0 rtl:pr-4">
+            <p className="border-l-[3px] border-white py-1 pl-4 text-base font-semibold italic leading-6 text-white sm:text-lg rtl:border-r-[3px] rtl:border-l-0 rtl:pl-0 rtl:pr-4">
               {activeSlide === 1
                 ? t("slide2Subtitle")
                 : activeSlide === 2
@@ -109,7 +109,7 @@ export default function Hero() {
                 aria-current={activeSlide === index}
                 onClick={() => swiperRef.current?.slideToLoop(index)}
                 className={`h-1 rounded-full transition-all duration-300 ${
-                  activeSlide === index ? "w-9 bg-primary" : "w-4 bg-white/50"
+                  activeSlide === index ? "w-9 bg-white" : "w-4 bg-white/50"
                 }`}
               />
             ))}
