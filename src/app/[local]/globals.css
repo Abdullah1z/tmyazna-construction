@@ -154,6 +154,10 @@ body {
   white-space: nowrap;
 }
 
+.nav-on-dark .nav-rolling-text-wrap .nav-text-duplicate {
+  color: #ffffff;
+}
+
 .group:hover .nav-rolling-text-wrap .nav-text-primary,
 .group:focus-visible .nav-rolling-text-wrap .nav-text-primary {
   transform: translateY(100%);

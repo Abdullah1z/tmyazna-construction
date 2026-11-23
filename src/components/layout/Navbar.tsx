@@ -323,12 +323,17 @@ export default function Navbar() {
 
   const activeItem = NAV.find((item) => item.key === activeMenu);
 
+  // White text while the navbar is transparent at the top of the page
+  const onDark = !scrolled && activeMenu === null;
+
   return (
     <>
       <header
         ref={navRef}
       onMouseLeave={handleMouseLeave}
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        onDark ? "nav-on-dark" : ""
+      } ${
         scrolled || activeMenu !== null
           ? "bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] border-b border-gray-100"
           : "bg-transparent border-b border-transparent"
@@ -378,7 +383,7 @@ export default function Navbar() {
                         setActiveMenu(item.key);
                       }
                     }}
-                    className="group flex items-center gap-1.5 px-3.5 xl:px-5 h-full text-[15px] font-medium text-[#0287FC] transition-colors duration-200 cursor-pointer"
+                    className={`group flex items-center gap-1.5 px-3.5 xl:px-5 h-full text-[15px] font-medium ${onDark ? "text-white" : "text-[#0287FC]"} transition-colors duration-200 cursor-pointer`}
                   >
                     <span className="nav-rolling-text-wrap">
                       <span className="nav-text-item nav-text-primary">
@@ -392,7 +397,7 @@ export default function Navbar() {
                     <ChevronDown
                       size={14}
                       className={`transition-transform duration-300 ease-out ${
-                        scrolled ? "text-secondary" : "text-[#0287FC]"
+                        onDark ? "text-white" : scrolled ? "text-secondary" : "text-[#0287FC]"
                       } ${
                         isOpen ? "rotate-180 text-primary" : ""
                       }`}
@@ -401,12 +406,12 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={item.href || "#"}
-                    className="group relative flex items-center px-3.5 xl:px-5 h-full text-[15px] font-medium text-[#0287FC] transition-colors duration-200"
+                    className={`group relative flex items-center px-3.5 xl:px-5 h-full text-[15px] font-medium ${onDark ? "text-white" : "text-[#0287FC]"} transition-colors duration-200`}
                   >
                     <span className="nav-rolling-text-wrap">
                       <span
                         className={`nav-text-item nav-text-primary ${
-                          itemActive ? "text-primary font-semibold" : ""
+                          itemActive ? `${onDark ? "text-white" : "text-primary"} font-semibold` : ""
                         }`}
                       >
                         {menuLabel}
@@ -477,7 +482,7 @@ export default function Navbar() {
               aria-label={t("search")}
               aria-expanded={searchOpen}
               className={`group relative flex h-full w-12 cursor-pointer items-center justify-center overflow-hidden transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
-                scrolled ? "text-gray-700" : "text-[#0287FC]"
+                onDark ? "text-white" : scrolled ? "text-gray-700" : "text-[#0287FC]"
               }`}
             >
               <span
@@ -565,7 +570,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <span aria-hidden="true" className="h-5 w-px bg-gray-200" />
+          <span aria-hidden="true" className={`h-5 w-px ${onDark ? "bg-white/40" : "bg-gray-200"}`} />
 
           {/* Language Switcher */}
           <Link
@@ -574,7 +579,7 @@ export default function Navbar() {
             scroll={false}
             onClick={preserveHomeScroll}
             dir={locale === "ar" ? "rtl" : "ltr"}
-            className="group relative inline-flex h-full shrink-0 items-center justify-center overflow-hidden px-3 text-sm font-semibold text-secondary transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            className={`group relative inline-flex h-full shrink-0 items-center justify-center overflow-hidden px-3 text-sm font-semibold ${onDark ? "text-white" : "text-secondary"} transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50`}
           >
             <span
               className={`absolute inset-0 ${
@@ -583,7 +588,16 @@ export default function Navbar() {
                   : "translate-x-[101%]"
               } bg-primary transition-transform duration-300 ease-out group-hover:translate-x-0 group-focus-visible:translate-x-0`}
             />
-            <span className="relative z-10">{t("switch")}</span>
+            <span
+              className="relative z-10"
+              style={
+                otherLocale === "ar"
+                  ? { fontFamily: "var(--font-cairo), sans-serif", fontSize: "15px", fontWeight: 600 }
+                  : undefined
+              }
+            >
+              {t("switch")}
+            </span>
           </Link>
 
           {/* Tablet / Mobile Menu Toggle Button: 3 straight lines morphing to X on click with NO unwanted skew/rotate on hover */}
@@ -596,19 +610,19 @@ export default function Navbar() {
             <span
               ref={burgerTopRef}
               className={`w-6 h-[2px] rounded-full origin-center will-change-transform block ${
-                scrolled ? "bg-gray-800" : "bg-[#0287FC]"
+                onDark ? "bg-white" : scrolled ? "bg-gray-800" : "bg-[#0287FC]"
               }`}
             />
             <span
               ref={burgerMidRef}
               className={`w-6 h-[2px] rounded-full origin-center will-change-transform block ${
-                scrolled ? "bg-gray-800" : "bg-[#0287FC]"
+                onDark ? "bg-white" : scrolled ? "bg-gray-800" : "bg-[#0287FC]"
               }`}
             />
             <span
               ref={burgerBotRef}
               className={`w-6 h-[2px] rounded-full origin-center will-change-transform block ${
-                scrolled ? "bg-gray-800" : "bg-[#0287FC]"
+                onDark ? "bg-white" : scrolled ? "bg-gray-800" : "bg-[#0287FC]"
               }`}
             />
           </button>
